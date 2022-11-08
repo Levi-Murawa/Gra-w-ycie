@@ -1,25 +1,52 @@
-# to start with, we will need matplotlib.pyplot
 from matplotlib import pyplot as plt
 import random
 import time
-# next, i will set up a 8 x 8 2d matrix, with random bits as elements (0 or 1);
-# for randomization of integers (0 or 1) I use the random module in Python;
-# for building each row in the 2d matrix I use list comprehension in Python
+
+def zrob_tablice(szer, wys): ##funckja tworząca tablicę w sposób losowy
+    data = []
+    for i in range(wys):
+        data.append([random.randint(a=0, b=1) for x in range(0, szer)])
+    return data
+
+
+def gra(stan):
+    badanie = []
+    wi_badanie = []
+
+    maks_wiersze = len(stan)
+    maks_kolumny = len(stan[0])
+    for wi in range(maks_wiersze):
+
+        for kol in range(maks_kolumny):
+            a = 0
+            if (kol>0):
+                a = a + stan[wi][kol-1]
+            if (kol+1<maks_kolumny):
+                a = a + stan[wi][kol+1]
+            if (wi>0):
+                a = a + stan[wi-1][kol]
+            if (wi+1<maks_wiersze):
+                a = a + stan[wi+1][kol]
+            wi_badanie.append(a)
+        badanie.append(wi_badanie)
+        wi_badanie = []
+    print(badanie)
+
+
+
 
 plt.ion()
 x = 10
 y = 10
 
-for i in range(10):
-    data = [[random.randint(a=0,b=1) for x in range(0,x)], # row 1
-            [random.randint(a=0,b=1) for x in range(0,x)], # row 2
-            [random.randint(a=0,b=1) for x in range(0,x)], # row 3
-            [random.randint(a=0,b=1) for x in range(0,x)], # row 4
-            [random.randint(a=0,b=1) for x in range(0,x)], # row 5
-            [random.randint(a=0,b=1) for x in range(0,x)], # row 6
-            [random.randint(a=0,b=1) for x in range(0,x)], # row 7
-            [random.randint(a=0,b=1) for x in range(0,x)]] # row 8
-    plt.imshow(data)
-    plt.pause(0.5)
-    plt.clf()
+dat = zrob_tablice(x, y)
+gra(dat)
+plt.imshow(dat)
+
+
+#for i in range(10):
+#    dat = zrob_tablice(x, y)
+#    plt.imshow(dat)
+#    plt.pause(0.5)
+#    plt.clf()
 
