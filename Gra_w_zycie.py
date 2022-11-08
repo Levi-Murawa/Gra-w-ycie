@@ -27,26 +27,25 @@ def gra(stan):
                 a = a + stan[wi-1][kol]
             if (wi+1<maks_wiersze):
                 a = a + stan[wi+1][kol]
-            wi_badanie.append(a)
-        badanie.append(wi_badanie)
-        wi_badanie = []
-    print(badanie)
+            if (a == 2 or a == 3):
+                stan[wi][kol] = 1
+            else:
+                stan[wi][kol] = 0
 
 
 
 
 plt.ion()
-x = 10
-y = 10
+x = 4
+y = 4
 
 dat = zrob_tablice(x, y)
-gra(dat)
-plt.imshow(dat)
 
 
-#for i in range(10):
-#    dat = zrob_tablice(x, y)
-#    plt.imshow(dat)
-#    plt.pause(0.5)
-#    plt.clf()
+
+for i in range(10):
+    plt.imshow(dat)
+    plt.pause(2)
+    gra(dat)
+    plt.clf()
 
