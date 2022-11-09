@@ -101,8 +101,10 @@ if __name__ == '__main__':
         czas_cyklu = float(e2.get())
         roz_x = int(e4.get())
         roz_y = int(e5.get())
-        tryb = e3.get(e3.curselection())
-        print(tryb)
+        try:
+            tryb = e3.get(e3.curselection())
+        except:
+            tryb = "Losowanie"
         if tryb == "Losowanie":
             tab = zrob_tablice(roz_x, roz_y)
             animacja(tab, ilosc_cykli, czas_cyklu)
@@ -130,7 +132,7 @@ if __name__ == '__main__':
     e2.grid(row=1, column=1)
 
     tk.Label(master, text="Wybór trybu").grid(row=2)
-    e3 = tk.Listbox(master)
+    e3 = tk.Listbox(master, height = 5, selectmode = 'SINGLE')
     e3.insert(1, "Losowanie")
     e3.insert(2, "Żółw")
     e3.insert(3, "Blink")
