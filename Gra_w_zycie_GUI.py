@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 import random
-
+import tkinter as tk
 
 tab_zolw = [[0, 0, 0, 0],
             [0, 1, 1, 0],
@@ -90,7 +90,77 @@ def animacja(tab_wejsciowa, ile_okr, czas_okr):
         plt.clf()
 
 
+def test():
+    dat = zrob_tablice(100, 100)
+    animacja(dat, 100, 0.1)
+
+
 if __name__ == '__main__':
-    dat = zrob_tablice(40, 40)
-    animacja(dat, 1000, 0.01)
-# dostempne predefiniowane wzory: tab_zolw, tab_blink, szybowiec, datkota
+    def symulacja():
+        ilosc_cykli = int(e1.get())
+        czas_cyklu = float(e2.get())
+        roz_x = int(e4.get())
+        roz_y = int(e5.get())
+        tryb = e3.get(e3.curselection())
+        print(tryb)
+        if tryb == "Losowanie":
+            tab = zrob_tablice(roz_x, roz_y)
+            animacja(tab, ilosc_cykli, czas_cyklu)
+        elif tryb == "Żółw":
+            animacja(tab_zolw, ilosc_cykli, czas_cyklu)
+        elif tryb == "Blink":
+            animacja(tab_blink, ilosc_cykli, czas_cyklu)
+        elif tryb == "Szybowiec":
+            animacja(szybowiec, ilosc_cykli, czas_cyklu)
+        elif tryb == "Dakota":
+            animacja(datkota, ilosc_cykli, czas_cyklu)
+
+
+    master = tk.Tk()
+    master.title("Symulacja gry w życie")
+    tk.Label(master, text="Liczba okresów").grid(row=0)
+    tk.Label(master, text="Czas pojedyńczego okresu").grid(row=1)
+
+    e1 = tk.Entry(master)
+    e2 = tk.Entry(master)
+    e1.insert(10, 500)
+    e2.insert(10, 0.05)
+
+    e1.grid(row=0, column=1)
+    e2.grid(row=1, column=1)
+
+    tk.Label(master, text="Wybór trybu").grid(row=2)
+    e3 = tk.Listbox(master)
+    e3.insert(1, "Losowanie")
+    e3.insert(2, "Żółw")
+    e3.insert(3, "Blink")
+    e3.insert(4, "Szybowiec")
+    e3.insert(5, "Dakota")
+
+    e3.grid(row=2, column=1)
+
+    tk.Label(master, text="Rozmiar X (tylko dla losowania)").grid(row=3)
+    tk.Label(master, text="Rozmiar Y (tylko dla losowania)").grid(row=4)
+
+    e4 = tk.Entry(master)
+    e5 = tk.Entry(master)
+    e4.insert(10, 100)
+    e5.insert(10, 100)
+
+    e4.grid(row=3, column=1)
+    e5.grid(row=4, column=1)
+
+    tk.Button(master,
+              text='Wyjdź (naciśnij dwa razy)',
+              command=master.quit).grid(row=5,
+                                        column=0,
+                                        sticky=tk.W,
+                                        pady=4)
+    tk.Button(master, text='Symulacja', command=symulacja).grid(row=5,
+                                                           column=1,
+                                                           sticky=tk.W,
+                                                           pady=4)
+
+    master.mainloop()
+
+    tk.mainloop()
